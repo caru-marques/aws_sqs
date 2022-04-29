@@ -30,10 +30,9 @@ public class SQSService {
                 .credentialsProvider(credentialsProvider)
                 .build();
 
-        // ===== Busca uma Fila =====
+        //Buscar Fila
         GetQueueUrlRequest request = GetQueueUrlRequest.builder()
-                //.queueName("fila-danilo.fifo") // enfia para fila fifo
-                 .queueName("fila-caru") // enfia para fila padrão
+                 .queueName("fila-caru") 
                 .queueOwnerAWSAccountId("755977887883").build();
         GetQueueUrlResponse createResult = sqsClient.getQueueUrl(request);
         
@@ -45,7 +44,6 @@ public class SQSService {
     public static void sendMessage(SqsClient sqsClient, String queueUrl, String message) {
         SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
             .queueUrl(queueUrl)
-            //.messageGroupId("grupo") // Para filas fifo
             .messageBody(message)
             .build();
         sqsClient.sendMessage(sendMsgRequest);

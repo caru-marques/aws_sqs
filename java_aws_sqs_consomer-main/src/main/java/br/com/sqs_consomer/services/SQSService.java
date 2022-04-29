@@ -32,15 +32,13 @@ public class SQSService {
                 .credentialsProvider(credentialsProvider)
                 .build();
 
-        // ===== Busca uma Fila =====
-        GetQueueUrlRequest request = GetQueueUrlRequest.builder()
-                //.queueName("fila-danilo.fifo") // ler da fila fifo
-                 .queueName("fila-caru")  // ler da fila padrão
+        //Buscar Fila 
+        GetQueueUrlRequest request = GetQueueUrlRequest.builder()                
+                 .queueName("fila-caru")  
                 .queueOwnerAWSAccountId("755977887883").build();
         GetQueueUrlResponse createResult = sqsClient.getQueueUrl(request);
         
         List<Message> messages = receiveMessages(sqsClient, createResult.queueUrl());
-        // System.out.println("Quantidade de mensagens: " + messages.size());
         for (Message mess : messages) {
             System.out.println("Mensagem: " + mess.body());
         }
